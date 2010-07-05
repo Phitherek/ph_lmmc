@@ -1,0 +1,5 @@
+#!/bin/bash
+echo ph_lmmc_install_all script - compile and install ph_lmmc and gncmpcpp
+./ph_lmmc_compile
+./ph_lmmc_install
+echo ph_lmmc_install_all done!

@@ -1,0 +1,6 @@
+#!/bin/bash
+echo ph_lmmc_install script - script for installing ph_lmmc
+sudo mkdir /usr/lib/ph_lmmc
+sudo cp *.xpm ph_lmmc /usr/lib/ph_lmmc
+sudo cp ph_lmmc_launcher /usr/bin/ph_lmmc
+echo ph_lmmc installation done! To use the program, launch "ph_lmmc" command

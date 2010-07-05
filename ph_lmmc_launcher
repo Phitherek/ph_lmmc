@@ -1,0 +1,3 @@
+#/bin/bash
+cd /usr/lib/ph_lmmc
+./ph_lmmc
