@@ -1,0 +1,14 @@
+PH_LMMC: Phitherek_' s Linux Music Management Center
+Dependencies:
+- GTK+ >= 2.0
+- MPC
+- MPD (pulseaudio version recommended)
+- SMPlayer (pulseaudio version recommended)
+- NCMPCPP
+Recommended:
+- projectM-pulseaudio
+- PulseAudio
+Installation:
+Run ./ph_lmmc_install_all
+Running:
+Type ph_lmmc in your terminal.
