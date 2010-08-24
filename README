@@ -12,3 +12,5 @@ Installation:
 Run ./ph_lmmc_install_all
 Running:
 Type ph_lmmc in your terminal.
+
+Branch development: Development version of ph_lmmc (without version, nigthly changes)
