@@ -1,5 +1,6 @@
 #!/bin/bash
-for i in {1..50..1}
+for i in {1..100..1}
 do
-mpc volume -4;
+mpc volume -1;
+sleep 0.04;
 done

@@ -1,5 +1,5 @@
 #!/bin/bash
 for i in {1..50..1}
 do
-smplayer -send-action decrease_volume;
+smplayer -send-action increase_volume;
 done
