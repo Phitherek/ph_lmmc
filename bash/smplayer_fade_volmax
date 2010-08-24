@@ -1,0 +1,5 @@
+#!/bin/bash
+for {1..50..1}
+do
+smplayer -send-action increase_volume;
+done
