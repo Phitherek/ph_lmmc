@@ -1,0 +1,8 @@
+#!/bin/bash
+mpc play;
+for i in {1..50..1}
+do
+smplayer -send-action decrease_volume;
+mpc volume +4;
+done
+smplayer -send-action pause
