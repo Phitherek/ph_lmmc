@@ -1,0 +1,4 @@
+#!/bin/bash
+echo ph_lmmc GITUpdate - Script for updating ph_lmmc from GIT
+git pull git://github.com/Phitherek/ph_lmmc.git master
+./ph_lmmc_install_all

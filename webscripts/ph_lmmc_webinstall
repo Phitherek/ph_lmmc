@@ -1,0 +1,7 @@
+#!/bin/bash
+mkdir ph_lmmc_webinstall_files
+cd ph_lmmc_webinstall_files
+wget http://www.phitherek.cba.pl/download/ph_lmmc/ph_lmmc_src.tar.gz
+tar -zxf ph_lmmc_src.tar.gz
+cd src
+./ph_lmmc_install_all

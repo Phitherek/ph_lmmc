@@ -1,0 +1,4 @@
+#!/bin/bash
+echo ph_lmmc GITInstall - Script for installing ph_lmmc from GIT
+git clone git://github.com/Phitherek/ph_lmmc.git master
+./ph_lmmc_install_all
