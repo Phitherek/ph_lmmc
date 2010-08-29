@@ -53,7 +53,7 @@ system("bash/smplayer_fade_halfvol");
 }
 
 void smplayer_fade_halfmax(GtkWidget *widget, gpointer data) {
-system("smplayer/mpd_fade_halfmax");	
+system("bash/smplayer_fade_halfmax");	
 }
 
 // Callbacki do Dual Control
