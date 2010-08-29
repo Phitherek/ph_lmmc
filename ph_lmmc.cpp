@@ -1,4 +1,4 @@
-// Phitherek_' s Linux Media Management System v. 0.1 (c) 2010 by Phitherek_
+// Phitherek_' s Linux Media Management System v. 0.2 "Fading" (c) 2010 by Phitherek_
 // Dołącz potrzebne pliki
 #include <cstdlib>
 #include <gtk/gtk.h>
@@ -15,11 +15,45 @@ void mpc_command(GtkWidget *widget, gpointer data) {
 	system(cmd.c_str());
 }
 
+// Callbacki do MPC Fading
+void mpd_fade_mute(GtkWidget *widget, gpointer data) {
+system("bash/mpd_fade_mute");	
+}
+
+void mpd_fade_volmax(GtkWidget *widget, gpointer data) {
+system("bash/mpd_fade_volmax");	
+}
+
+void mpd_fade_halfvol(GtkWidget *widget, gpointer data) {
+system("bash/mpd_fade_halfvol");	
+}
+
+void mpd_fade_halfmax(GtkWidget *widget, gpointer data) {
+system("bash/mpd_fade_halfmax");	
+}
+
 // Callback dla SMPlayera
 void smplayer_command(GtkWidget *widget, gpointer data) {
 	cmd = "smplayer -send-action ";
 	cmd += (char *)data;
 	system(cmd.c_str());	
+}
+
+// Callbacki do SMPlayer Fading
+void smplayer_fade_mute(GtkWidget *widget, gpointer data) {
+system("bash/smplayer_fade_mute");	
+}
+
+void smplayer_fade_volmax(GtkWidget *widget, gpointer data) {
+system("bash/smplayer_fade_volmax");	
+}
+
+void smplayer_fade_halfvol(GtkWidget *widget, gpointer data) {
+system("bash/smplayer_fade_halfvol");	
+}
+
+void smplayer_fade_halfmax(GtkWidget *widget, gpointer data) {
+system("smplayer/mpd_fade_halfmax");	
 }
 
 // Callbacki do Dual Control
@@ -46,6 +80,15 @@ system("smplayer -send-action pause");
 void stop_all(GtkWidget *widget, gpointer data) {
 system("mpc stop");
 system("smplayer -send-action stop");
+}
+
+// Callbacki do Dual Fading
+void mpd_smplayer_fade(GtkWidget *widget, gpointer data) {
+system("bash/mpd_smplayer_fade");	
+}
+
+void smplayer_mpd_fade(GtkWidget *widget, gpointer data) {
+system("bash/smplayer_mpd_fade");	
 }
 
 // Callback uruchamiający gncmpcpp
@@ -90,7 +133,7 @@ gtk_init(&argc, &argv);
 // Stwórz nowe okno
 window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 // Ustaw tytuł okna
-gtk_window_set_title(GTK_WINDOW(window), "Phitherek_' s Linux Music Management Center v. 0.1 (c) 2010 by Phitherek_");
+gtk_window_set_title(GTK_WINDOW(window), "Phitherek_' s Linux Music Management Center v. 0.2 'Fading (c) 2010 by Phitherek_");
 // Wyjdź z GTK, gdy okno zostanie zamknięte
 g_signal_connect(G_OBJECT(window), "destroy", G_CALLBACK(gtk_main_quit), NULL);
 g_signal_connect(G_OBJECT(window), "delete_event", G_CALLBACK(gtk_main_quit), NULL);
@@ -220,6 +263,82 @@ gtk_container_add(GTK_CONTAINER(frame), hbox);
 gtk_box_pack_start(GTK_BOX(vbox), frame, TRUE, FALSE, 5);
 // Pokaż frame-a
 gtk_widget_show(frame);
+// Ramka MPD Fading
+frame = gtk_frame_new("MPD Fading");
+// Utwórz HBox-a z odstępem 5
+hbox = gtk_hbox_new(FALSE, 5);
+// Przycisk fade_mute
+button = gtk_button_new();
+// Ikona fade_mute
+image = gtk_image_new_from_file("fade_mute.xpm");
+// Pokaż ikonę
+gtk_widget_show(image);
+// Przyczep ikonę do przycisku
+gtk_container_add(GTK_CONTAINER(button), image);
+// Dodaj podpowiedź do przycisku
+gtk_tooltips_set_tip(tip, button, "Fade to mute in MPD", NULL);
+// Wywołaj callback
+g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(mpd_fade_mute), NULL);
+// Pakuj przycisk w hboxa
+gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, FALSE, 5);
+// Pokaż przycisk
+gtk_widget_show(button);
+// Przycisk fade_volmax
+button = gtk_button_new();
+// Ikona fade_volmax
+image = gtk_image_new_from_file("fade_volmax.xpm");
+// Pokaż ikonę
+gtk_widget_show(image);
+// Przyczep ikonę do przycisku
+gtk_container_add(GTK_CONTAINER(button), image);
+// Dodaj podpowiedź do przycisku
+gtk_tooltips_set_tip(tip, button, "Fade to max volume in MPD", NULL);
+// Wywołaj callback
+g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(mpd_fade_volmax), NULL);
+// Pakuj przycisk w hboxa
+gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, FALSE, 5);
+// Pokaż przycisk
+gtk_widget_show(button);
+// Przycisk fade_halfvol
+button = gtk_button_new();
+// Ikona fade_halfvol
+image = gtk_image_new_from_file("fade_halfvol.xpm");
+// Pokaż ikonę
+gtk_widget_show(image);
+// Przyczep ikonę do przycisku
+gtk_container_add(GTK_CONTAINER(button), image);
+// Dodaj podpowiedź do przycisku
+gtk_tooltips_set_tip(tip, button, "Fade to approximately 50% of volume in MPD", NULL);
+// Wywołaj callback
+g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(mpd_fade_halfvol), NULL);
+// Pakuj przycisk w hboxa
+gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, FALSE, 5);
+// Pokaż przycisk
+gtk_widget_show(button);
+// Przycisk fade_halfmax
+button = gtk_button_new();
+// Ikona fade_halfmax
+image = gtk_image_new_from_file("fade_halfmax.xpm");
+// Pokaż ikonę
+gtk_widget_show(image);
+// Przyczep ikonę do przycisku
+gtk_container_add(GTK_CONTAINER(button), image);
+// Dodaj podpowiedź do przycisku
+gtk_tooltips_set_tip(tip, button, "Fade from approximately 50% of volume to max volume in MPD", NULL);
+// Wywołaj callback
+g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(mpd_fade_halfmax), NULL);
+// Pakuj przycisk w hboxa
+gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, FALSE, 5);
+// Pokaż przycisk
+gtk_widget_show(button);
+// Pokaż hboxa
+gtk_widget_show(hbox);
+// Przyczep hboxa do frame-a
+gtk_container_add(GTK_CONTAINER(frame), hbox);
+// Pakuj frame-a do vboxa
+gtk_box_pack_start(GTK_BOX(vbox), frame, TRUE, FALSE, 5);
+// Pokaż frame-a
+gtk_widget_show(frame);
 // Ramka SMPlayer Controls
 frame = gtk_frame_new("SMPlayer Controls");
 // HBox 5
@@ -328,6 +447,82 @@ gtk_container_add(GTK_CONTAINER(frame), hbox);
 gtk_box_pack_start(GTK_BOX(vbox), frame, TRUE, FALSE, 5);
 // Pokaż frame
 gtk_widget_show(frame);
+// Ramka SMPlayer Fading
+frame = gtk_frame_new("SMPlayer Fading");
+// Utwórz HBox-a z odstępem 5
+hbox = gtk_hbox_new(FALSE, 5);
+// Przycisk fade_mute
+button = gtk_button_new();
+// Ikona fade_mute
+image = gtk_image_new_from_file("fade_mute.xpm");
+// Pokaż ikonę
+gtk_widget_show(image);
+// Przyczep ikonę do przycisku
+gtk_container_add(GTK_CONTAINER(button), image);
+// Dodaj podpowiedź do przycisku
+gtk_tooltips_set_tip(tip, button, "Fade to mute in SMPlayer", NULL);
+// Wywołaj callback
+g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(smplayer_fade_mute), NULL);
+// Pakuj przycisk w hboxa
+gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, FALSE, 5);
+// Pokaż przycisk
+gtk_widget_show(button);
+// Przycisk fade_volmax
+button = gtk_button_new();
+// Ikona fade_volmax
+image = gtk_image_new_from_file("fade_volmax.xpm");
+// Pokaż ikonę
+gtk_widget_show(image);
+// Przyczep ikonę do przycisku
+gtk_container_add(GTK_CONTAINER(button), image);
+// Dodaj podpowiedź do przycisku
+gtk_tooltips_set_tip(tip, button, "Fade to max volume in SMPlayer", NULL);
+// Wywołaj callback
+g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(smplayer_fade_volmax), NULL);
+// Pakuj przycisk w hboxa
+gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, FALSE, 5);
+// Pokaż przycisk
+gtk_widget_show(button);
+// Przycisk fade_halfvol
+button = gtk_button_new();
+// Ikona fade_halfvol
+image = gtk_image_new_from_file("fade_halfvol.xpm");
+// Pokaż ikonę
+gtk_widget_show(image);
+// Przyczep ikonę do przycisku
+gtk_container_add(GTK_CONTAINER(button), image);
+// Dodaj podpowiedź do przycisku
+gtk_tooltips_set_tip(tip, button, "Fade to approximately 50% of volume in SMPlayer", NULL);
+// Wywołaj callback
+g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(smplayer_fade_halfvol), NULL);
+// Pakuj przycisk w hboxa
+gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, FALSE, 5);
+// Pokaż przycisk
+gtk_widget_show(button);
+// Przycisk fade_halfmax
+button = gtk_button_new();
+// Ikona fade_halfmax
+image = gtk_image_new_from_file("fade_halfmax.xpm");
+// Pokaż ikonę
+gtk_widget_show(image);
+// Przyczep ikonę do przycisku
+gtk_container_add(GTK_CONTAINER(button), image);
+// Dodaj podpowiedź do przycisku
+gtk_tooltips_set_tip(tip, button, "Fade from approximately 50% of volume to max volume in SMPlayer", NULL);
+// Wywołaj callback
+g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(smplayer_fade_halfmax), NULL);
+// Pakuj przycisk w hboxa
+gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, FALSE, 5);
+// Pokaż przycisk
+gtk_widget_show(button);
+// Pokaż hboxa
+gtk_widget_show(hbox);
+// Przyczep hboxa do frame-a
+gtk_container_add(GTK_CONTAINER(frame), hbox);
+// Pakuj frame-a do vboxa
+gtk_box_pack_start(GTK_BOX(vbox), frame, TRUE, FALSE, 5);
+// Pokaż frame-a
+gtk_widget_show(frame);
 // Ramka Dual Control
 frame = gtk_frame_new("Dual Control");
 // HBox 5
@@ -412,6 +607,51 @@ g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(stop_all), NULL);
 gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, FALSE, 5);
 // Wyświetl przycisk
 gtk_widget_show(button);
+// Wyświetl hboxa
+gtk_widget_show(hbox);
+// Do frame-a
+gtk_container_add(GTK_CONTAINER(frame), hbox);
+// Frame do vboxa
+gtk_box_pack_start(GTK_BOX(vbox), frame, TRUE, FALSE, 5);
+// Pokaż frame-a
+gtk_widget_show(frame);
+// Ramka Dual Fading
+frame = gtk_frame_new("Dual Fading");
+// HBox 5
+hbox = gtk_hbox_new(FALSE, 5);
+// Przycisk MPD -> SMPlayer Fade
+button = gtk_button_new();
+// Ikona
+image = gtk_image_new_from_file("mpd_smplayer_fade.xpm");
+// Pokaż ikonę
+gtk_widget_show(image);
+// Do przycisku
+gtk_container_add(GTK_CONTAINER(button), image);
+// Podpowiedź
+gtk_tooltips_set_tip(tip, button, "Pause in MPD, play from SMPlayer - crossfade", NULL);
+// Wywołaj callback
+g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(mpd_smplayer_fade), NULL);
+// Do hboxa
+gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, FALSE, 5);
+// Wyświetl przycisk
+gtk_widget_show(button);
+// Przycisk SMPlayer -> MPD Fade
+button = gtk_button_new();
+// Ikona
+image = gtk_image_new_from_file("smplayer_mpd_fade.xpm");
+// Pokaż ikonę
+gtk_widget_show(image);
+// Do przycisku
+gtk_container_add(GTK_CONTAINER(button), image);
+// Podpowiedź
+gtk_tooltips_set_tip(tip, button, "Pause in SMPlayer, play from MPD - crossfade", NULL);
+// Wywołaj callback
+g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(smplayer_mpd_fade), NULL);
+// Do hboxa
+gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, FALSE, 5);
+// Wyświetl przycisk
+gtk_widget_show(button);
+
 // Wyświetl hboxa
 gtk_widget_show(hbox);
 // Do frame-a
