@@ -1,8 +1,9 @@
-// Phitherek_' s Linux Media Management System v. 0.2 "Fading" (c) 2010 by Phitherek_
+// Phitherek_' s Linux Music Management Center v. 0.3 "Mic-To-Output" (c) 2010 by Phitherek_
 // Dołącz potrzebne pliki
 #include <cstdlib>
 #include <gtk/gtk.h>
 #include <string>
+#include <fstream>
 
 std::string cmd;
 
@@ -106,6 +107,12 @@ void projectm_launch(GtkWidget *widget, gpointer data) {
 system("projectM-pulseaudio&");	
 }
 
+// Callback do Mic-To-Output
+void ph_mto_launch(GtkWidget *widget, gpointer data) {
+system("ph_mto");	
+}
+
+
 // Callback do Stop, Close & Exit
 void stop_close(GtkWidget *widget, gpointer data) {
 system("mpc stop");
@@ -113,6 +120,27 @@ system("smplayer -send-action stop");
 system("killall ncmpcpp");
 system("killall smplayer");
 system("killall projectM-pulseaudio");
+}
+
+// Funkcja do sprawdzania statusu ph_mto
+int mtostatus() {
+std::string houm;
+std::string mtostatusfile;
+system("echo $HOME > /tmp/houm");
+std::ifstream home("/tmp/houm");
+home >> houm;
+home.close();
+remove("/tmp/houm");
+mtostatusfile = houm + "/.ph_mto/status";
+std::ifstream mtostat(mtostatusfile.c_str());
+if(mtostat) {
+int st;
+mtostat >> st;
+mtostat.close();
+return st;
+} else {
+return -1;
+}
 }
 
 // Główna funkcja - zgodnie z GTK
@@ -127,13 +155,16 @@ GtkWidget *image; // Dla obrazków na przyciskach
 GtkWidget *frame; // Dla ramek
 GtkTooltips *tip; // Dla tipów
 
+// Zmienna do statusu MTO
+int mtostat;
+
 // Inicjuj GTK
 gtk_init(&argc, &argv);
 
 // Stwórz nowe okno
 window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 // Ustaw tytuł okna
-gtk_window_set_title(GTK_WINDOW(window), "Phitherek_' s Linux Music Management Center v. 0.2 'Fading (c) 2010 by Phitherek_");
+gtk_window_set_title(GTK_WINDOW(window), "Phitherek_' s Linux Music Management Center v. 0.3 'Mic-To-Output' (c) 2010 by Phitherek_");
 // Wyjdź z GTK, gdy okno zostanie zamknięte
 g_signal_connect(G_OBJECT(window), "destroy", G_CALLBACK(gtk_main_quit), NULL);
 g_signal_connect(G_OBJECT(window), "delete_event", G_CALLBACK(gtk_main_quit), NULL);
@@ -676,6 +707,48 @@ gtk_container_add(GTK_CONTAINER(button), image);
 gtk_tooltips_set_tip(tip, button, "Launch projectM for PulseAudio", NULL);
 // Wywołaj callback
 g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(projectm_launch), NULL);
+// Do hboxa
+gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, FALSE, 5);
+// Wyświetl przycisk
+gtk_widget_show(button);
+// Wyświetl hboxa
+gtk_widget_show(hbox);
+// Do frame-a
+gtk_container_add(GTK_CONTAINER(frame), hbox);
+// Frame do vboxa
+gtk_box_pack_start(GTK_BOX(vbox), frame, TRUE, FALSE, 5);
+// Pokaż frame-a
+gtk_widget_show(frame);
+// Ramka Mic-To-Output (PulseAudio only)
+frame = gtk_frame_new("Mic-To-Output (PulseAudio only)");
+// HBox 5
+hbox = gtk_hbox_new(FALSE, 5);
+// Przycisk Mic-To-Output On/Off/Unknown status
+button = gtk_button_new();
+// Sprawdzenie statusu
+mtostat = mtostatus();
+// Ikona:
+if(mtostat == -1) {
+image = gtk_image_new_from_file("mto_unknown.xpm");
+} else if(mtostat == 0) {
+image = gtk_image_new_from_file("mto_on.xpm");	
+} else if(mtostat == 1) {
+image = gtk_image_new_from_file("mto_off.xpm");	
+}
+// Pokaż ikonę
+gtk_widget_show(image);
+// Do przycisku
+gtk_container_add(GTK_CONTAINER(button), image);
+// Podpowiedź:
+if(mtostat == -1) {
+gtk_tooltips_set_tip(tip, button, "Unknown status of Mic-To-Output: Click to launch ph_mto", NULL);
+} else if(mtostat == 0) {
+gtk_tooltips_set_tip(tip, button, "Enable Mic-To-Output with ph_mto", NULL);	
+} else if(mtostat == 1) {
+gtk_tooltips_set_tip(tip, button, "Disable Mic-To-Output with ph_mto", NULL);	
+}
+// Wywołaj callback
+g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(ph_mto_launch), NULL);
 // Do hboxa
 gtk_box_pack_start(GTK_BOX(hbox), button, TRUE, FALSE, 5);
 // Wyświetl przycisk
