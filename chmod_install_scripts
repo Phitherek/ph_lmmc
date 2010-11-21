@@ -1,6 +1,7 @@
 #!/bin/bash
 echo chmod_install_scripts - script for making ph_lmmc install scripts executable
 sudo chmod +x gncmpcpp_install
+sudo chmod +x ph_mto_install
 sudo chmod +x ph_lmmc_compile
 sudo chmod +x ph_lmmc_launcher
 sudo chmod +x ph_lmmc_install
