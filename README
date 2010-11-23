@@ -7,7 +7,6 @@ Branch development: Core files, development version (nightly changes).
 Changes so far:
 - added ph_mto - a program for toggling PulseAudio' s "microphone to output" on or off - to the project
 - written installation scripts for ph_mto
-
-Planned:
-- integration of ph_mto and ph_lmmc
-- releasing the changes as version 0.3 "Mic-To-Output"
+- integrated ph_mto with ph_lmmc
+- icons and logo for 0.3 "Mic-To-Output"
+- dynamic changing of icon and tips for ph_mto button
