@@ -2,5 +2,7 @@
 echo ph_lmmc_compile script - script for compiling ph_lmmc
 echo Running gncmpcpp_install script
 ./gncmpcpp_install
+echo Running ph_mto_install script
+./ph_mto_install
 g++ -o ph_lmmc ph_lmmc.cpp `pkg-config --cflags --libs gtk+-2.0`
 echo ph_lmmc compilation done!

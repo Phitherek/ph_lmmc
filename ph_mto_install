@@ -1,0 +1,5 @@
+#!/bin/bash
+echo ph_mto_install script - installation of ph_mto - for use with ph_lmmc project
+g++ -o ph_mto ph_mto.cpp
+sudo cp ph_mto /usr/bin
+echo ph_mto installed!

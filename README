@@ -2,4 +2,5 @@ PH_LMMC: Phitherek_' s Linux Music Management Center
 
 A small program in GTK and C++ designed for managing external media players: MPD and SMPlayer in such way, that it' s really easy and works quite well. For more information about how this program works, what' s the idea of managing music with it and answers to many other questions (installation, dependencies and so on), refer to project' s Wiki at GitHub.
 
-Branch w_scripts: Core files and web/git scripts, version 0.2 "Fading".
+Branch w_scripts: Core files and web/git scripts, version 0.3 "Mic-To-Output".
+
