@@ -108,14 +108,6 @@ system("smplayer&");
 void projectm_launch(GtkWidget *widget, gpointer data) {
 system("projectM-pulseaudio&");	
 }
-// Callback do Stop, Close & Exit
-void stop_close(GtkWidget *widget, gpointer data) {
-system("mpc stop");
-system("smplayer -send-action stop");
-system("killall ncmpcpp");
-system("killall smplayer");
-system("killall projectM-pulseaudio");
-}
 
 // Funkcja do sprawdzania statusu ph_mto
 int mtostatus() {
@@ -161,6 +153,20 @@ gtk_tooltips_set_tip(tip, widget, "Disable Mic-To-Output with ph_mto", NULL);
 }
 while( gtk_events_pending() )
     gtk_main_iteration();
+}
+
+// Callback do Stop, Close & Exit
+void stop_close(GtkWidget *widget, gpointer data) {
+system("mpc stop");
+system("smplayer -send-action stop");
+system("killall ncmpcpp");
+system("killall smplayer");
+system("killall projectM-pulseaudio");
+int mtostat;
+mtostat = mtostatus();
+if(mtostat == 1) {
+system("ph_mto");	
+}
 }
 
 
