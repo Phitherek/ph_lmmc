@@ -4,9 +4,4 @@ A small program in GTK and C++ designed for managing external media players: MPD
 
 Branch development: Core files, development version (nightly changes).
 
-Changes so far:
-- added ph_mto - a program for toggling PulseAudio' s "microphone to output" on or off - to the project
-- written installation scripts for ph_mto
-- integrated ph_mto with ph_lmmc
-- icons and logo for 0.3 "Mic-To-Output"
-- dynamic changing of icon and tips for ph_mto button
+Version 0.3 "Mic-To-Output" is now in master.
